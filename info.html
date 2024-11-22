@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoBaza</title>
+  <style>
+    /* Общие стили */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #2e2e2e; /* Темный фон */
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff; /* Светлый текст */
+      text-align: center;
+    }
+
+    /* Стиль для титула */
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Тень для титула */
+      letter-spacing: 2px;
+    }
+
+    /* Контейнер для кнопок */
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap; /* Для мобильных устройств кнопки будут располагаться в несколько рядов */
+    }
+
+    /* Стили для кнопок */
+    .button {
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #6e7dff, #3a5af7);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      min-width: 120px; /* Минимальная ширина кнопки */
+    }
+
+    .button:hover {
+      background: linear-gradient(135deg, #3a5af7, #6e7dff);
+      transform: scale(1.1);
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .button:active {
+      transform: scale(1);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .button:focus {
+      outline: none;
+    }
+
+    /* Скрытое меню */
+    .submenu {
+      display: none;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+      display: grid;
+      width: 90%;
+    }
+
+    .submenu button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background: #444;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .submenu button:hover {
+      background: #666;
+    }
+
+    /* Медиазапросы для мобильных устройств */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px; /* Уменьшаем размер заголовка на маленьких экранах */
+      }
+
+      .button {
+        font-size: 16px; /* Уменьшаем размер шрифта на кнопках */
+        padding: 12px 25px; /* Уменьшаем отступы кнопок */
+      }
+
+      .button-container {
+        flex-direction: column; /* Кнопки будут располагаться вертикально */
+        gap: 15px; /* Уменьшаем расстояние между кнопками */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Титул страницы -->
+  <h1>InfoBaza</h1>
+
+  <!-- Кнопки -->
+  <div class="button-container">
+    <button class="button" onclick="toggleMenu()">Ученики</button>
+    <button class="button">Классы</button>
+  </div>
+
+  <!-- Скрытое меню -->
+  <div class="submenu" id="submenu"></div>
+
+  <script>
+    // Функция для отображения/скрытия меню
+    function toggleMenu() {
+      const submenu = document.getElementById("submenu");
+      // Проверяем текущее состояние подменю
+      if (submenu.style.display === "none" || submenu.style.display === "") {
+        submenu.style.display = "grid";
+        generateClassButtons(); // Генерируем кнопки классов при показе меню
+      } else {
+        submenu.style.display = "none";
+      }
+    }
+
+    // Функция для динамического создания кнопок классов
+    function generateClassButtons() {
+      const submenu = document.getElementById("submenu");
+      submenu.innerHTML = ''; // Очищаем подменю перед генерацией новых кнопок
+
+      const classes = [];
+      for (let i = 5; i <= 11; i++) { // Цифры от 5 до 11
+        for (let letter of ['А', 'Б', 'В', 'Г']) { // Буквы от А до Г
+          classes.push(`${i}-${letter}`); // Генерируем классы вида "5-А", "5-Б", ...
+        }
+      }
+
+      // Создаем кнопки для каждого класса
+      classes.forEach(className => {
+        const button = document.createElement("button");
+        button.textContent = className;
+
+        // Устанавливаем уникальную ссылку для каждой кнопки
+        button.onclick = function() {
+          // Пример перенаправления на разные страницы в зависимости от класса
+          window.location.href = `${className}.html`; // Замените на ваш URL
+        };
+
+        submenu.appendChild(button);
+      });
+    }
+  </script>
+
+</body>
+</html>
